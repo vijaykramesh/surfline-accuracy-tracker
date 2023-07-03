@@ -8,6 +8,21 @@ import (
 	"strconv"
 )
 
+type NewSiteReport struct {
+	Email            string            `json:"email"`
+	SurflineSiteID   string            `json:"surflineSiteId"`
+	SurflineRating   *SurflineRating   `json:"surflineRating,omitempty"`
+	SiteReportRating SiteReportRating  `json:"siteReportRating"`
+	AccuracyEstimate *AccuracyEstimate `json:"accuracyEstimate,omitempty"`
+	Timestamp        int               `json:"timestamp"`
+}
+
+type NewSurflineSite struct {
+	SurflineID string `json:"surflineId"`
+	Name       string `json:"name"`
+	URL        string `json:"url"`
+}
+
 type AccuracyEstimate string
 
 const (
@@ -51,50 +66,50 @@ func (e AccuracyEstimate) MarshalGQL(w io.Writer) {
 	fmt.Fprint(w, strconv.Quote(e.String()))
 }
 
-type ReportRating string
+type SiteReportRating string
 
 const (
-	ReportRatingPoor     ReportRating = "POOR"
-	ReportRatingFair     ReportRating = "FAIR"
-	ReportRatingGood     ReportRating = "GOOD"
-	ReportRatingVeryGood ReportRating = "VERY_GOOD"
-	ReportRatingEpic     ReportRating = "EPIC"
+	SiteReportRatingPoor     SiteReportRating = "POOR"
+	SiteReportRatingFair     SiteReportRating = "FAIR"
+	SiteReportRatingGood     SiteReportRating = "GOOD"
+	SiteReportRatingVeryGood SiteReportRating = "VERY_GOOD"
+	SiteReportRatingEpic     SiteReportRating = "EPIC"
 )
 
-var AllReportRating = []ReportRating{
-	ReportRatingPoor,
-	ReportRatingFair,
-	ReportRatingGood,
-	ReportRatingVeryGood,
-	ReportRatingEpic,
+var AllSiteReportRating = []SiteReportRating{
+	SiteReportRatingPoor,
+	SiteReportRatingFair,
+	SiteReportRatingGood,
+	SiteReportRatingVeryGood,
+	SiteReportRatingEpic,
 }
 
-func (e ReportRating) IsValid() bool {
+func (e SiteReportRating) IsValid() bool {
 	switch e {
-	case ReportRatingPoor, ReportRatingFair, ReportRatingGood, ReportRatingVeryGood, ReportRatingEpic:
+	case SiteReportRatingPoor, SiteReportRatingFair, SiteReportRatingGood, SiteReportRatingVeryGood, SiteReportRatingEpic:
 		return true
 	}
 	return false
 }
 
-func (e ReportRating) String() string {
+func (e SiteReportRating) String() string {
 	return string(e)
 }
 
-func (e *ReportRating) UnmarshalGQL(v interface{}) error {
+func (e *SiteReportRating) UnmarshalGQL(v interface{}) error {
 	str, ok := v.(string)
 	if !ok {
 		return fmt.Errorf("enums must be strings")
 	}
 
-	*e = ReportRating(str)
+	*e = SiteReportRating(str)
 	if !e.IsValid() {
-		return fmt.Errorf("%s is not a valid ReportRating", str)
+		return fmt.Errorf("%s is not a valid SiteReportRating", str)
 	}
 	return nil
 }
 
-func (e ReportRating) MarshalGQL(w io.Writer) {
+func (e SiteReportRating) MarshalGQL(w io.Writer) {
 	fmt.Fprint(w, strconv.Quote(e.String()))
 }
 

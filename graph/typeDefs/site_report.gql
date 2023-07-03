@@ -1,0 +1,53 @@
+
+
+enum AccuracyEstimate {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum SurflineRating {
+  POOR
+  FAIR
+  GOOD
+  VERY_GOOD
+  EPIC
+}
+
+enum SiteReportRating {
+  POOR
+  FAIR
+  GOOD
+  VERY_GOOD
+  EPIC
+}
+
+type SiteReport {
+  email: String!
+  surflineSite: SurflineSite!
+  surflineRating: SurflineRating
+  SiteReportRating: SiteReportRating!
+  accuracyEstimate: AccuracyEstimate
+  timestamp: Int!
+}
+
+
+input NewSiteReport {
+  email: String!
+  surflineSiteId: ID!
+  surflineRating: SurflineRating
+  siteReportRating: SiteReportRating!
+  accuracyEstimate: AccuracyEstimate
+  timestamp: Int!
+}
+
+
+extend type Query {
+  siteReports: [SiteReport!]!
+  getSiteReport(id: String!): SiteReport!
+}
+
+
+extend type Mutation {
+  createSiteReport(input: NewSiteReport!): SiteReport!
+}

@@ -15,12 +15,10 @@ Finally, run `go run ./server.go` to bring up the server.
 ## Example Queries
 
 ```graphql
-query getReports {
-  reports{
-    id
+query getSiteReports {
+  siteReports{
     email
     surflineSite {
-      id
       name
       url
     }
@@ -29,7 +27,6 @@ query getReports {
 
 query getSurflineSites {
   surflineSites{
-    id
     name
     url
   }
@@ -39,16 +36,16 @@ query getSurflineSites {
 ## Example Mutations
 
 ```graphql
-mutation createReport {
-  createReport(input:{
+mutation createSiteReport {
+  createSiteReport(input:{
     email:"vijay.krishna.ramesh@gmail.com"
     surflineSiteId:1
     surflineRating: FAIR
-    reportRating:GOOD
+    siteReportRating:GOOD
     accuracyEstimate:MEDIUM
     timestamp: 1688324044 
   }){
-    id
+    timestamp
   }
 }
 ```
