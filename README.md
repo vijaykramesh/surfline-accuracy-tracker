@@ -51,7 +51,7 @@ mutation createSiteReport {
 ```
 
 ## Tests
-TODO
+Run `go test ./...` to run all tests.
 
 ## Contributing
 Contributions are welcome, please fork and submit a PR.  Please follow the existing code style and conventions.
