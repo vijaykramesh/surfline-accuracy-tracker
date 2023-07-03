@@ -4,7 +4,7 @@
 This is a small GraphQL project to track the accuracy of surfline.com's surf reports.
 
 ## Local Setup
-Use go 1.19 and `go mod download` to fetch dependencies.
+Use go 1.20 and `go mod download` to fetch dependencies.
 
 You can use docker-compose to run a local psql instance, first copy `.env.example` to `.env` and fill it out, and then run `docker-compose up`
 
