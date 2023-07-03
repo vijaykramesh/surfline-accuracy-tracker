@@ -1,13 +1,9 @@
 package model
 
-type NewSurflineSite struct {
-	SurflineID string `json:"surflineId"`
-	Name       string `json:"name"`
-	URL        string `json:"url"`
-}
+import "gorm.io/gorm"
 
 type SurflineSite struct {
-	ID         string `json:"id"`
+	gorm.Model
 	SurflineID string `json:"surflineId"`
 	Name       string `json:"name"`
 	URL        string `json:"url"`

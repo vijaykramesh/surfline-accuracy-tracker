@@ -1,16 +1,11 @@
 # Where are all the schema files located? globs are supported eg  src/**/*.graphqls
 schema:
-  - graph/*.graphqls
+  - graph/typeDefs/*.gql
 
 # Where should the generated server code go?
 exec:
-  filename: graph/generated.go
-  package: graph
-
-# Uncomment to enable federation
-# federation:
-#   filename: graph/federation.go
-#   package: graph
+  filename: graph/generated/generated.go
+  package: generated
 
 # Where should any generated models go?
 model:
@@ -20,11 +15,18 @@ model:
 # Where should the resolver implementations go?
 resolver:
   layout: follow-schema
-  dir: graph
-  package: graph
+  dir: graph/resolvers
+  package: resolvers
   filename_template: "{name}.resolvers.go"
-  # Optional: turn on to not generate template comments above resolvers
-  # omit_template_comment: false
+
+
+
+# Uncomment to enable federation
+# federation:
+#   filename: graph/federation.go
+#   package: graph
+
+
 
 # Optional: turn on use ` + "`" + `gqlgen:"fieldName"` + "`" + ` tags in your models
 # struct_tag: json
@@ -85,9 +87,7 @@ models:
       - github.com/99designs/gqlgen/graphql.Int
       - github.com/99designs/gqlgen/graphql.Int64
       - github.com/99designs/gqlgen/graphql.Int32
-  Report:
+  SiteReport:
     fields:
       surflineSite:
         resolver: true
-
-

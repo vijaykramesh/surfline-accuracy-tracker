@@ -1,0 +1,22 @@
+type SurflineSite {
+  surflineId: String!
+  name: String!
+  url: String!
+}
+
+
+input NewSurflineSite {
+  surflineId: String!
+  name: String!
+  url: String!
+}
+
+extend type Query {
+  surflineSites: [SurflineSite!]!
+  getSurflineSite(id: String!): SurflineSite!
+}
+
+
+extend type Mutation {
+  createSurflineSite(input: NewSurflineSite!): SurflineSite!
+}
