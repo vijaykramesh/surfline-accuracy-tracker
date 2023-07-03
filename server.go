@@ -15,12 +15,27 @@ import (
 
 const defaultPort = "8080"
 
+func cors(h http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "*")
+		w.Header().Set("Access-Control-Allow-Headers", "*")
+		h(w, r)
+	}
+}
+
 func main() {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
 
+	//router := chi.NewRouter()
+	//router.Use(cors.New(cors.Options{
+	//	AllowedOrigins:   []string{"*"},
+	//	AllowCredentials: true,
+	//	Debug:            true,
+	//}).Handler)
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = defaultPort
@@ -37,7 +52,7 @@ func main() {
 		Database: db,
 	}
 
-	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
+	http.Handle("/", cors(playground.Handler("GraphQL playground", "/query")))
 	http.Handle("/query", common.CreateContext(customCtx, srv))
 
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)

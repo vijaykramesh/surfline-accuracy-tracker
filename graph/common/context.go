@@ -20,6 +20,10 @@ func CreateContext(args *CustomContext, next http.Handler) http.Handler {
 			Database: args.Database,
 		}
 		requestWithCtx := r.WithContext(context.WithValue(r.Context(), customContextKey, customContext))
+		// TODO: remove this but chi isn't working
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "*")
+		w.Header().Set("Access-Control-Allow-Headers", "*")
 		next.ServeHTTP(w, requestWithCtx)
 	})
 }
